@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final UserRepository repository;
+    private final UserRepository repositoryUser;
 
     public UserService(UserRepository repository) {
-        this.repository = repository;
+        this.repositoryUser = repository;
     }
 
     public void createUser(UserEntity user) {
-        repository.save(user);
+        repositoryUser.save(user);
     }
 
     public Page<UserEntity> getUsers(Pageable pageable) {
@@ -33,12 +33,12 @@ public class UserService {
                 Sort.Direction.ASC,
                 "name");
         return new PageImpl<>(
-                repository.findAll(),
+                repositoryUser.findAll(),
                 pageRequest, size);
     }
 
     public UserResponse getUser(Long id) {
-        return repository.findById(id)
+        return repositoryUser.findById(id)
                 .map(u -> new UserResponse(u.getName()))
                 .orElseThrow(() -> new NotFoundException("Usuario nao encontrado."));
     }

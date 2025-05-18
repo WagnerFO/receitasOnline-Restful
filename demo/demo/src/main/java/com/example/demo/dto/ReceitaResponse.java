@@ -1,4 +1,4 @@
 package com.example.demo.dto;
 
-public record ReceitaResponse() {
+public record ReceitaResponse(String titulo) {
 }
