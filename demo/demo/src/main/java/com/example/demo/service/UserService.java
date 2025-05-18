@@ -43,21 +43,25 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Usuario nao encontrado."));
     }
 
-    public void updateUser(Long id, UserEntity user) {
-        var userEntity = getUser(id);
 
-        if (userEntity != null) {
-//            userEntity.setName(user.getName());
-//            userEntity.setEmail(user.getEmail());
-//            repository.save(userEntity);
-        }
+    private UserEntity findUserEntityById(Long id) {
+        return repositoryUser.findById(id)
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
     }
+
+    public void updateUser(Long id, UserEntity userData) {
+        UserEntity existingUser = findUserEntityById(id);
+
+        existingUser.setName(userData.getName());
+        existingUser.setEmail(userData.getEmail());
+
+        repositoryUser.save(existingUser);
+    }
+
 
     public void deleteUser(Long id) {
-        var user = getUser(id);
-
-        if (user != null) {
-//            repository.delete(user);
-        }
+        UserEntity existingUser = findUserEntityById(id);
+        repositoryUser.delete(existingUser);
     }
+
 }
