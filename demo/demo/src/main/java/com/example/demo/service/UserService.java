@@ -21,7 +21,6 @@ public class UserService {
     }
 
     public Page<UserEntity> getUsers(Pageable pageable) {
-        
         return findAll();
     }
 
